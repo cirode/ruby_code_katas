@@ -12,7 +12,8 @@ end
 require 'rake'
 
 task :spec do
-  system('ruby test/test_price.rb')
+  ruby 'test/test_price.rb'
 end
+
 
 task :default => :spec
