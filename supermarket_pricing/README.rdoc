@@ -1,0 +1,5 @@
+# Supermarket Pricing
+This code is intended to solve the problem as outlined in http://codekata.pragprog.com/2007/01/kata_nine_back_.html
+
+## A note on the Implementation
+TBA
