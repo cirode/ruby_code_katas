@@ -1,5 +1,40 @@
-# Supermarket Pricing
+= Supermarket Pricing
 This code is intended to solve the problem as outlined in http://codekata.pragprog.com/2007/01/kata_nine_back_.html
 
-## A note on the Implementation
-TBA
+== A note on the Implementation
+
+===Testing
+The Kata link given above actually gives a very basic test suite to use whilst implementing the Kata. In this first revision, I used exactly that test suite and didn't write any further tests of my own. As it turns out, the tests given exercise the code quite well, however it is not indicative of how I would lay out a test file. I may create RSpec test suite in the future to show how I would go about this.
+
+===Rules and Totalling Pipeline
+The way I modelled the rules and implemented the .total method was done with the explicit intent of keeping the project DRY and making it extensible. As it stands, new rules can be written by simply adding another class to the CheckOut::Rules module and implementing the initialize and apply methods to accept the same parameters as the existing XforY rule (ducktyping FTW ;) ). In time, if the rules get duplicated code, a Rule abstract class or module could be created to DRY up the implementation again
+
+The Pipeline as implemented makes the assumption that an item should not be counted in more than one special, and the specials are in priority order in the ruleset. This is a good assumption as far as I can see and matches what I know of the domain over and above the requirements stated. Refactoring would be necessary if this assumption was proved false.
+
+Strictly speaking, the requirements do not ask for a system that can allow more than one special per item, nor specials that can rely on more than one item code. This ability added no additional time to implementation however and so I added (but did not test or assert) these abilities to the codebase.
+
+===Complexity
+Whilst this initial version was not coded for explicit optimisation, it is useful to look at the code after each implementation with a critical eye. Since this is an exercise, I did complexity analysis on it in Big O notation, broken down into three areas
+
+* S is the amount of Specials in the Ruleset
+* N is the amount of Items in the Ruleset
+* P is the amount of Items Purchased (scanned)
+
+====Initialisation:
+1+1+S = O(S)
+
+====Scanning
+O(1)
+
+====Totalling
+1+1{assume a clone operation is a constant} + S * (2+1+1+4+3) + N*4 +1 = O(S+N)
+
+====Summary
+Each phase of the process is linear or better in complexity, scaling linearly on Items and/or Specials. Whilst it may not be the most optimal solution to the problem, there are no glaring issues that should be addressed before putting it under load.
+
+Breaking the complexity down into three phases like this tells us a few things: It tells us that the complexity of the program is contained within the initialization and totalling code. Even then, the Complexity does not rely on the amount of items scanned: ie, the code will behave just as well with 1 million items scanned as with 100 and scans will not slow down over time.
+
+
+
+
+

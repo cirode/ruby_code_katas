@@ -1,1 +1,4 @@
-#Ruby Code Katas
+= Ruby Code Katas
+A set of small code Katas in Ruby to show how I would approach certain problems. It will be interesting to come back to each problem after a period of time and see how my implementations change.
+
+Each code Kata is meant to solve the problem at hand and does not necessarily show the best implementation in all situations. This is actually a good simulation of a real world project: Not all requirements are known up front, so a maintainable and extensible solution to the known requirements is a good starting point.
